@@ -1,0 +1,65 @@
+
+{% load static i18n %}
+
+<!DOCTYPE html>
+
+<html lang="fr-FR">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>
+      {% block title %}{% endblock title %} - Snowlab
+    </title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimal-ui">
+
+    <script type="text/javascript" src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+
+    {% block javascript %}
+    {% endblock javascript %}
+
+    {% block css %}
+      {% include "css_base.html" %}
+    {% endblock %}
+  </head>
+
+  <body>
+    <header>
+      <a href="/" title="Aller à l’accueil">
+        <h1>
+          Démonstration Django
+        </h1>
+      </a>
+      <nav id="main-navigation">
+
+      </nav>
+    </header>
+    <main>
+
+    {% block content %}
+    {% endblock content %}
+
+    {% block modal %}
+    {% endblock modal %}
+
+    {% block inline_javascript %}
+    {% endblock inline_javascript %}
+
+    {% block end_javascript %}
+    {% endblock end_javascript %}
+
+
+      <p>
+        <small>
+          &copy; Alexandre RASPAUD 2024 &mdash;
+        </small>
+      </p>
+    </main>
+
+    <footer>
+    {% block footer %}
+    {% endblock %}
+    </footer>
+
+  </body>
+
+</html>

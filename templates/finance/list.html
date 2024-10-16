@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block title %}
+    Liste des factures
+{% endblock %}
+
+{% block content %}
+    {% for object in object_list %}
+        {{ object.name }}
+    {% endfor %}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

@@ -1,25 +1,7 @@
 from django.db import models
 
-from finance.managers import ClientManager, ClientQuerySet, InvoiceManager, InvoiceQuerySet, TagManager, TagQuerySet
-
-
-class Client(models.Model):
-    name = models.CharField(
-        "Nom du client",
-        max_length=255
-    )
-    tax_number = models.CharField(
-        "Numéro TVA",
-        max_length=255
-    )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    objects = ClientManager.from_queryset(ClientQuerySet)()
-
-    class Meta:
-        verbose_name = "Client"
-        verbose_name_plural = "Clients"
+from clients.models import Client
+from finance.managers import InvoiceManager, InvoiceQuerySet, TagManager, TagQuerySet
 
 
 class InvoiceTag(models.Model):
@@ -29,6 +11,9 @@ class InvoiceTag(models.Model):
     )
 
     objects = TagManager.from_queryset(TagQuerySet)()
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name = "Tag"
@@ -55,13 +40,19 @@ class Invoice(models.Model):
     )
     tags = models.ManyToManyField(
         InvoiceTag,
-        related_name="invoices"
+        related_name="invoices",
+        null=True,
+        blank=True,
     )
+    has_been_paid = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = InvoiceManager.from_queryset(InvoiceQuerySet)()
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name = "Facture"
